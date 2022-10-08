@@ -1,5 +1,8 @@
 pipeline {
     agent {label 'GRADLE JDK11 PY3 NVM'} 
+    triggers{
+        pollSCM('*****')
+    }
     stages {
         stage('clone') { 
             steps {
