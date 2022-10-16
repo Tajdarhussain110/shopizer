@@ -1,7 +1,7 @@
 pipeline {
     agent {label 'new-1'} 
     triggers {
-        crone('30 17 * * *')
+        pollSCM('* * * * *')
     }
     stages {
         stage('clone') { 
@@ -12,6 +12,11 @@ pipeline {
         stage('install') { 
             steps {
                 sh 'mvn package'
+            }
+        }
+        stage('merge') {
+            steps {
+                sh 'git merge release devlop' 
             }
         }
     }
