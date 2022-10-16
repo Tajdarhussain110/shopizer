@@ -1,7 +1,7 @@
 pipeline {
     agent {label 'new-1'} 
     triggers {
-        pollSCM('* * * * *')
+        crone('30 17 * * *')
     }
     stages {
         stage('clone') { 
