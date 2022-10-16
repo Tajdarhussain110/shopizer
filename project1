@@ -1,0 +1,18 @@
+pipeline {
+    agent {label 'new-1'} 
+    triggers {
+        pollSCM('* * * * *')
+    }
+    stages {
+        stage('clone') { 
+            steps {
+                git url:'https://github.com/Tajdarhussain110/shopizer.git' , branch : 'master' 
+            }
+        }
+        stage('install') { 
+            steps {
+                sh 'mvn package'
+            }
+        }
+    }
+}
