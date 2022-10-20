@@ -1,0 +1,24 @@
+pipeline {
+       agent { label 'label-1' }
+       parameters {
+          choice(name: 'BRANCH_TO_BUILD', choices: ['main', 'rel'], description: 'Choose the branch')
+                  }
+       stages {
+           stage ('vcs') {
+            steps {
+              git url: 'https://github.com/Tajdarhussain110/shopizer.git',
+              branch: "${params.BRANCH_TO_BUILD}"
+                }
+                           }
+            stage ('Exec Maven') {
+            steps {
+                rtMavenRun (
+                    tool: "MVN_DEFAULT", // Tool name from Jenkins configuration
+                    pom: 'pom.xml',
+                    goals: 'clean install',
+                    deployerId: "MAVEN_DEPLOYER"
+                )
+            }
+        }
+       }
+}
